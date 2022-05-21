@@ -1,3 +1,14 @@
 ul {
     list-style: none;
 }
+.bold_text {
+    font-weight: bold;
+    font-size: 110%;
+    color:firebrick;
+}
+/* .comments_div_display, .comments_form_display {
+    display: none;
+} */
+/* .comments_form_display {
+    display: none;
+} */

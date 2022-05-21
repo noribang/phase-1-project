@@ -9,10 +9,21 @@
     <script src="./main.js" defer></script>
 </head>
 <body>
-    <h1>Drinks</h1>
+    <h1>Get Your Drink On!!!</h1>
 
     <div id="drink-image-container">
       <!-- images here -->
+    </div>
+
+    <form class="comments_form_display" id="create_comment_form" action="" method="POST">
+      <label for="new_drink_comment">Leave Comment:</label>
+      <input type="text" id="new_drink_comment" name="new_drink_comment" placeholder="Write comments here...">
+      <input type="submit" value="Submit Comment">
+    </form>
+
+    <div class="comments_div_display" id="list-comments">
+      <h2>Comment:</h2>
+      <ul id="drink_comments"></ul>
     </div>
 
     <hr>

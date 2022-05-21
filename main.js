@@ -41,6 +41,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // console.log("drinkDropDown: ", drinkDropDown)
     /* Access div that will hold img. */
     const drinkImgContainer = document.getElementById("drink-image-container")
+    /* Access li elements in DOM. */
+    const drinkList = document.getElementsByClassName("listDrink")
+    /* Access comments elements by class name. */
+    const drinkCommentsForm = document.getElementsByClassName("comments_form_display")
+    /* Access form element. */
+    const drinkForm = document.querySelector("form")
 
     ////* Dropdown event listener. *////
     drinkDropDown.addEventListener('click', function(event) {
@@ -107,11 +113,24 @@ document.addEventListener('DOMContentLoaded', function() {
     */    
     drinkTypesList.addEventListener("click", function(event) {
         // debugger
+
+        // Make li text bold.
+        // Access li element.
+        const liTarget = event.target
+        // console.log(liTarget)
+        // console.log(drinkList)
+        // First remove class bold_text from all li elements.
+        for (let i = 0; i < drinkList.length; i++) {
+            drinkList[i].classList.remove("bold_text")
+        }
+        // Add class bold_text to li element.
+        liTarget.classList.add("bold_text")
+
         /* Clear out previous image in container. */
         drinkImgContainer.innerHTML = ""
         /* Get name of drink clicked on in list. */
         const listTarget = event.target.innerText
-        console.log(listTarget)
+        // console.log(listTarget)
         /* Send default GET request to Drinks API. 
            Request JSON by name of drink from ul li. */
         const drinksByNameUrl = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${listTarget}`
@@ -141,9 +160,64 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log(error)
         })
         
+        /* Drink Comments Form display. */
+        // Remove class comments_display from all comments elements.
+        // console.log(drinkCommentsForm)
+        for (let i = 0; i < drinkCommentsForm.length; i++) {
+            drinkCommentsForm[i].classList.remove("comments_form_display")
+        }
+        // Add class comments_display to comments element.
+        // liTarget.classList.add("bold_text")  
     })
 
+    /* Form to leave comments. */
+    drinkForm.addEventListener("submit", function(event) {
+        /* Suppress default page load bwhavior. */
+        event.preventDefault()
 
+        let formCommentTarget = event.target.new_drink_comment.value
+        console.log("Form submit: ", formCommentTarget)
+
+        buildComment(formCommentTarget)
+        /* Clear input text. */
+        formCommentTarget = ""
+
+        /* Display Comments. */
+        // const displayComments = document.getElementsByClassName("comments_div_display")
+        // console.log("Comments: ", displayComments)
+        // Remove class to display on DOM.
+        // console.log("Comments: ", displayComments[0])
+
+        // displayComments[0].classList.remove("comments_div_display")
+    
+    })
+
+    function buildComment(comment) {
+        /* Create li element to put user input into. */
+        const li = document.createElement("li")
+        /* Create button element */
+        const btn = document.createElement("button")
+        /* Add .addEventListener to button 
+           to be able to delete it later. */
+        btn.addEventListener("click", handleDelete)
+        btn.textContent = "Delete"
+        /* Assign user input to li element. */
+        li.textContent = `${comment} `
+        /* Append button to li element. */
+        li.appendChild(btn)
+        // console.log(li)
+        /* Append li element to ul element as a child element. */
+        document.querySelector("#drink_comments").appendChild(li)
+      }
+    
+      function handleDelete(e) {
+        // console.log(e)
+        /* Delete button as target and li as parentNode. */
+        e.target.parentNode.remove()
+    
+      }
+
+    
     
 }) // End DOMContentLoaded
 
