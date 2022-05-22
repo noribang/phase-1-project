@@ -168,19 +168,27 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         // Add class comments_display to comments element.
         // liTarget.classList.add("bold_text")  
+
+        /* Delete existing comments. */
+        const existComment = document.getElementById("drink_comments") 
+        existComment.innerHTML = ""
     })
 
     /* Form to leave comments. */
-    drinkForm.addEventListener("submit", function(event) {
+    drinkForm.addEventListener("submit", (event) => {
         /* Suppress default page load bwhavior. */
         event.preventDefault()
 
         let formCommentTarget = event.target.new_drink_comment.value
-        console.log("Form submit: ", formCommentTarget)
+        // console.log("Form submit: ", formCommentTarget)
 
         buildComment(formCommentTarget)
+        // console.log("Form submit: ", event.target.new_drink_comment)
         /* Clear input text. */
-        formCommentTarget = ""
+        // formCommentTarget.innerText = " "
+        const commentValue = document.getElementById("new_drink_comment")
+        console.log("commentValue ", commentValue)
+        commentValue.value = ""
 
         /* Display Comments. */
         // const displayComments = document.getElementsByClassName("comments_div_display")
